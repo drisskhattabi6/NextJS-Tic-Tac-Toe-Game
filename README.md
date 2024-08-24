@@ -12,7 +12,7 @@ To get started with the project, you need to clone the repository and install th
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/drisskhattabi6/Tic-Tac-Toe-Game.git
+git clone https://github.com/drisskhattabi6/NestJS-Tic-Tac-Toe-Game.git
 ```
 
 ### 2. Navigate to the Project Directory
