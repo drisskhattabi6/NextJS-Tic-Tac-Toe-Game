@@ -2,6 +2,9 @@
 
 This Repo contains a simple 'Tic-Tac-Toe' game built using Next.js.
 
+### Preview Image : 
+![](img.png)
+
 ## Installation
 
 To get started with the project, you need to clone the repository and install the dependencies.
