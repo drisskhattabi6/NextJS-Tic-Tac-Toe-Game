@@ -1,46 +1,47 @@
-import { Dispatch, SetStateAction } from "react";
+type Player = "circle" | "cross";
+type CellValue = Player | "";
 
 type CellProps = {
-    id: number;
-    go: string;
-    setGo: Dispatch<SetStateAction<string>>;
-    cells: string[];
-    setCells: Dispatch<SetStateAction<string[]>>;
-    cell: string;
-    winningMessage: string;
-}
-
-const Cell = ({go, setGo, id, cells, setCells, cell, winningMessage}: CellProps) => {
-
-    const handleClick = (e) => {
-        // if there is a winner, don't play
-        if (winningMessage) return 
-        
-        // check if the cell is already selected
-        const notTaken = !cells[id] 
-        
-        if (notTaken) {
-
-            if (go === "circle") {
-                handleCellChange("circle")
-                setGo("cross")
-            } else if (go === "cross") {
-                handleCellChange("cross")
-                setGo("circle")
-            }
-            
-        }
-    }
-
-    const handleCellChange = (cellToChange: string) => {
-        let copyCells = [...cells]
-        copyCells[id] = cellToChange
-        setCells(copyCells)
-    }
-
-    return <div className="square" onClick={handleClick}>
-        <div className={cell}>{cell === "circle" ? "O" : "X"}</div>
-    </div>;
+  id: number;
+  cell: CellValue;
+  onClick: (id: number) => void;
+  disabled: boolean;
+  isLastMove: boolean;
 };
 
-export default Cell;
+export default function Cell({
+  id,
+  cell,
+  onClick,
+  disabled,
+  isLastMove,
+}: CellProps) {
+  const symbol =
+    cell === "circle" ? "O" : cell === "cross" ? "X" : "";
+
+  const playerName =
+    cell === "circle"
+      ? "Circle"
+      : cell === "cross"
+        ? "Cross"
+        : "Empty";
+
+  return (
+    <button
+      type="button"
+      className={[
+        "square",
+        cell || "empty",
+        isLastMove ? "lastMove" : "",
+      ]
+        .filter(Boolean)
+        .join(" ")}
+      onClick={() => onClick(id)}
+      disabled={disabled || cell !== ""}
+      aria-label={`Cell ${id + 1}: ${playerName}`}
+      aria-pressed={cell !== ""}
+    >
+      <span>{symbol}</span>
+    </button>
+  );
+}
